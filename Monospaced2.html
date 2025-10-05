@@ -1,0 +1,757 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monospaced2</title>
+    <meta name="description" content="Пример портфолио дизайнера">
+    <style>
+        /* Reset and base styles - Optimized */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            /* Enhanced background: Less intensive animation for perf */
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f0f23, #533483);
+            background-size: 600% 600%;
+            animation: gradientShift 20s ease infinite;
+            position: relative;
+            overflow-x: hidden;
+            will-change: background-position; /* Hardware acceleration */
+        }
+        /* Reduced motion for accessibility/perf */
+        @media (prefers-reduced-motion: reduce) {
+            body { animation: none; }
+        }
+        /* Particle animation - Optimized, less frequent */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 160px 30px, #ddd, transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: particles 40s linear infinite; /* Slower for less lag */
+            opacity: 0.1;
+            z-index: -1;
+            will-change: transform;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+        }
+        @keyframes particles {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-100px); }
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Cover Section - Optimized animations */
+        .cover {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://static.tildacdn.pub/tild6130-3565-4438-b738-653563643634/photo_54069616110229.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .cover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(0,159,255,0.1) 50%, transparent 70%);
+            animation: shimmer 4s infinite; /* Slower shimmer */
+            will-change: transform;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .cover h1 {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease;
+            will-change: opacity, transform;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .cover p {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-family: 'Unbounded', sans-serif;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            margin: 0 10px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+            will-change: transform;
+        }
+        .btn-primary {
+            background: #009fff;
+            color: white;
+        }
+        .btn-secondary {
+            background: white;
+            color: #000;
+        }
+        .btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Advantages Section - Added outlined emojis */
+        .advantages {
+            padding: 100px 0;
+            background: rgba(8,8,8,0.9);
+            color: white;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .section-desc {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+            font-size: 1.1rem;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            text-align: center;
+            padding: 20px;
+            transition: transform 0.3s ease;
+            will-change: transform;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        .card img {
+            width: 70px;
+            margin-bottom: 20px;
+        }
+        .card h3::before {
+            content: '✨'; /* Outlined emoji example */
+            font-size: 1.5rem;
+            margin-right: 10px;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Outline effect */
+            filter: drop-shadow(0 0 2px rgba(255,255,255,0.5));
+        }
+        .card p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Gallery Sections - Optimized sliders with touch support */
+        .gallery {
+            padding: 90px 0;
+            background: rgba(8,8,8,0.9);
+            color: white;
+        }
+        .gallery h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .gallery p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+        .slider-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            will-change: transform;
+        }
+        .slide {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+        .slide img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer; /* For lightbox */
+            loading: lazy; /* Lazy loading for perf */
+        }
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+            will-change: opacity;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .slider-nav:hover {
+            opacity: 1;
+        }
+        .slider-prev { left: 10px; }
+        .slider-next { right: 10px; }
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .dot.active {
+            background: white;
+        }
+
+        /* Lightbox Modal - New functionality */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .lightbox img {
+            width: 100%;
+            height: auto;
+        }
+        .close-lightbox {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Reviews Section - Added outlined emojis */
+        .reviews {
+            padding: 150px 0;
+            background: rgba(8,8,8,0.9);
+            color: white;
+        }
+        .review-slider {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .review-item {
+            display: none;
+            text-align: center;
+        }
+        .review-item.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .review-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .review-author::before {
+            content: '⭐'; /* Outlined star emoji */
+            font-size: 1.2rem;
+            margin-right: 5px;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+            filter: drop-shadow(0 0 2px rgba(255,255,255,0.5));
+        }
+        .review-role {
+            opacity: 0.7;
+        }
+        .review-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 20px auto;
+            background: #ccc; /* Placeholder */
+        }
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .prev { left: -50px; }
+        .next { right: -50px; }
+
+        /* Contact Modal - New functionality */
+        .contact-modal {
+            display: none;
+            position: fixed;
+            z-index: 1500;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+        .modal-content {
+            background-color: #080808;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            color: white;
+        }
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-modal:hover {
+            color: white;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input, textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #1a1a1a;
+            color: white;
+        }
+
+        /* Fixed Banner - Optimized */
+        .fixed-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #3b73f5, #009fff);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.9; }
+        }
+        .fixed-banner.hidden {
+            display: none;
+        }
+        .close-banner {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Footer - Added contact button */
+        .footer {
+            padding: 30px 0 60px;
+            background: #000;
+            text-align: center;
+            color: #bcbcbc;
+        }
+        .contact-btn {
+            background: #009fff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* Responsive - Mobile optimized */
+        @media (max-width: 768px) {
+            .cover h1 { font-size: 3rem; }
+            .cover p { font-size: 1.2rem; }
+            .cards { grid-template-columns: 1fr; }
+            .slide img { height: 350px; }
+            .prev, .next, .slider-prev, .slider-next { display: none; }
+            .fixed-banner { flex-direction: column; gap: 10px; }
+            .lightbox-content { max-width: 95%; }
+        }
+        /* Touch support for sliders */
+        .slider-wrapper {
+            touch-action: pan-y;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover -->
+    <section class="cover">
+        <div class="container">
+            <h1>monospaced</h1>
+            <p>Дизайн с фокусом на Ваш успех</p>
+            <a href="https://funpay.com/lots/offer?id=52890778" class="btn btn-primary">Сделать заказ</a>
+            <a href="#avatars" class="btn btn-secondary">Примеры работ</a>
+        </div>
+    </section>
+
+    <!-- Advantages -->
+    <section class="advantages" id="quality">
+        <div class="container">
+            <h2 class="section-title">Преимущества работы со мной</h2>
+            <p class="section-desc">Быстрая и эффективная реализация различных проектов по доступным и конкурентоспособным ценам, которые обладают уникальным и оригинальным дизайном</p>
+            <div class="cards">
+                <div class="card">
+                    <img src="https://static.tildacdn.pub/tild6631-3033-4233-b533-613333313364/check_bullet_round_bold.svg" alt="" loading="lazy">
+                    <h3>Опыт работы</h3>
+                    <p>Более 2 лет в графическом дизайне, выполнено свыше 1000 заказов.</p>
+                </div>
+                <div class="card">
+                    <img src="https://static.tildacdn.pub/tild6536-6464-4233-a533-613333313364/discount_percent_benefit_offer.svg" alt="" loading="lazy">
+                    <h3>Доступные цены</h3>
+                    <p>Стоимость работы — всего от 99 рублей за проект.</p>
+                </div>
+                <div class="card">
+                    <img src="https://static.tildacdn.pub/tild6536-6464-4233-a533-613333313364/design_create.svg" alt="" loading="lazy">
+                    <h3>Разнообразие проектов</h3>
+                    <p>Создаю аватарки, баннеры, логотипы и превью.</p>
+                </div>
+                <div class="card">
+                    <img src="https://static.tildacdn.pub/tild6536-6464-4233-a533-613333313364/diamond_remove.svg" alt="" loading="lazy">
+                    <h3>Минималистичный стиль</h3>
+                    <p>Дизайн, ассоциирующийся с роскошью.</p>
+                </div>
+                <div class="card">
+                    <img src="https://static.tildacdn.pub/tild6536-6464-4233-a533-613333313364/watch_clock_time.svg" alt="" loading="lazy">
+                    <h3>Быстрое выполнение</h3>
+                    <p>Скорость выполнения работ - от 30 минут до нескольких часов</p>
+                </div>
+                <div class="card">
+                    <img src="https://static.tildacdn.pub/tild6536-6464-4233-a533-613333313364/man.svg" alt="" loading="lazy">
+                    <h3>Индивидуальный подход</h3>
+                    <p>Учитываю особенности каждого проекта для достижения наилучшего результата.</p>
+                </div>
+            </div>
+            <a href="#contact" class="btn btn-primary" style="display: block; margin: 40px auto 0; max-width: 200px;" onclick="openModal()">Связаться</a>
+        </div>
+    </section>
+
+    <!-- Avatars Gallery -->
+    <section class="gallery" id="avatars">
+        <div class="container">
+            <h2>Мои работы</h2>
+            <p>Примеры аватарок по цене от 99 рублей</p>
+            <div class="slider-wrapper">
+                <div class="slider" id="avatarSlider">
+                    <div class="slide"><img src="https://static.tildacdn.pub/tild3137-3361-4431-b062-663036616233/vozj7p3m2w1n1pmded57.webp" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
+                    <div class="slide"><img src="https://static.tildacdn.pub/tild3030-3034-4630-b161-306266353235/photo_53707642751922.webp" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
+                    <div class="slide"><img src="https://static.tildacdn.pub/tild6531-3632-4337-b566-363066346138/photo_53707642751922.webp" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
+                    <div class="slide"><img src="https://static.tildacdn.pub/tild6232-3664-4364-a537-613363346633/mlfpc7d34z8gna715nwl.jpg" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
+                    <div class="slide"><img src="https://static.tildacdn.pub/tild3865-3361-4365-b466-646233373666/dku1v5p0iq3oni4s7k7q.jpg" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
+                    <div class="slide"><img src="https://static.tildacdn.pub/tild6433-6231-4562-b435-613562303366/1itcb05qpiwri829nflv.jpg" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
+                </div>
+                <button class="slider-nav slider-prev" onclick="changeSlide('avatarSlider', -1)">&lt;</button>
+                <button class="slider-nav slider-next" onclick="changeSlide('avatarSlider', 1)">&gt;</button>
+                <div class="slider-dots" id="avatarDots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banners Gallery -->
+    <section class="gallery" id="banners">
+        <div class="container">
+            <h2>А также</h2>
+            <p>Примеры баннеров по цене от 99 рублей</p>
+            <div class="slider-wrapper">
+                <div class="slider" id="bannerSlider">
+                    <div class="slide"><img src="https://static.tildacdn.pub/tild6536-6434-4164-a538-613733316335/Airbrush-Image-Enhan.jpg" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
+                    <div class="slide"><img src="https://static.tildacdn.pub/tild3664-6332-4530-b631-336330636537/_1067_20251003215440.png" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
+                    <div class="slide"><img src="https://static.tildacdn.pub/tild3734-3266-4532-a539-613762323735/_1058_20250930211037.png" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
+                    <div class="slide"><img src="https://static.tildacdn.pub/tild3434-3536-4633-b432-653631616330/_1058_20250930210618.png" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
+                    <div class="slide"><img src="https://static.tildacdn.pub/tild6232-6233-4631-b565-343961643332/_1067_20251003191205.png" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
+                </div>
+                <button class="slider-nav slider-prev" onclick="changeSlide('bannerSlider', -1)">&lt;</button>
+                <button class="slider-nav slider-next" onclick="changeSlide('bannerSlider', 1)">&gt;</button>
+                <div class="slider-dots" id="bannerDots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <h2 class="section-title">Отзывы клиентов</h2>
+            <div class="review-slider">
+                <button class="slider-nav prev" onclick="changeReview(-1)">&lt;</button>
+                <div class="review-item active">
+                    <div class="review-text">Аватарка просто отрыв фляги! Дизайн приковывает взгляд, а цветовая гамма идеально подобрана. Смотрится современно и дорого. Однозначно 5 звёзд!</div>
+                    <div class="review-img"></div>
+                    <div class="review-author">Zapterodaktel</div>
+                    <div class="review-role">Геймер</div>
+                </div>
+                <div class="review-item">
+                    <div class="review-text">Хотел бы поблагодарить дизайнера Monospaced. Заказал у него аватарку, но дал такой себе тз, а продавец в свою очередь откорректировал и сделал все бомбово. Обращайтесь не пожалеете )</div>
+                    <div class="review-img"></div>
+                    <div class="review-author">Ildarov</div>
+                    <div class="review-role">SMM FUNPAY</div>
+                </div>
+                <div class="review-item">
+                    <div class="review-text">Самый заебатый продавец, буду покупать только у него! Делает изумительные аватарки, покупайте!</div>
+                    <div class="review-img"></div>
+                    <div class="review-author">Mictaa</div>
+                    <div class="review-role">Владелец Discord сервера</div>
+                </div>
+                <button class="slider-nav next" onclick="changeReview(1)">&gt;</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="contact-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>Связаться со мной</h2>
+            <form>
+                <input type="text" placeholder="Ваше имя" required>
+                <input type="email" placeholder="Ваш email" required>
+                <textarea placeholder="Сообщение" rows="5" required></textarea>
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-content">
+            <img id="lightboxImg" src="" alt="">
+        </div>
+    </div>
+
+    <!-- Fixed Banner -->
+    <div class="fixed-banner" id="banner">
+        <span>Действуют скидки до конца месяца. Оформите заказ прямо сейчас!</span>
+        <a href="https://funpay.com/lots/offer?id=52890778" class="btn btn-primary">Сделать заказ</a>
+        <button class="close-banner" onclick="hideBanner()">&times;</button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; Monospaced. Все права защищены.</p>
+            <a href="#contact" class="contact-btn" onclick="openModal()">Обратная связь</a>
+        </div>
+    </footer>
+
+    <script>
+        // Optimized Review Slider - Use requestAnimationFrame if needed
+        let currentReview = 0;
+        const reviews = document.querySelectorAll('.review-item');
+
+        function showReview(index) {
+            reviews.forEach(r => r.classList.remove('active'));
+            reviews[index].classList.add('active');
+        }
+
+        function changeReview(direction) {
+            currentReview = (currentReview + direction + reviews.length) % reviews.length;
+            showReview(currentReview);
+        }
+
+        // Auto-slide with reduced frequency for perf
+        setInterval(() => changeReview(1), 6000);
+
+        // Improved Gallery Sliders - Touch support
+        let startX = 0;
+        let currentSlide = 0;
+
+        function initSlider(sliderId, dotsId) {
+            const slider = document.getElementById(sliderId);
+            const slides = slider.children;
+            const dotsContainer = document.getElementById(dotsId);
+            let localCurrent = 0;
+
+            // Create dots
+            for (let i = 0; i < slides.length; i++) {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => goToSlide(i);
+                dotsContainer.appendChild(dot);
+            }
+            const dots = dotsContainer.children;
+
+            function goToSlide(index) {
+                localCurrent = index;
+                slider.style.transform = `translateX(-${index * 100}%)`;
+                for (let dot of dots) dot.classList.remove('active');
+                dots[index].classList.add('active');
+            }
+
+            function nextSlide() {
+                localCurrent = (localCurrent + 1) % slides.length;
+                goToSlide(localCurrent);
+            }
+
+            // Touch events for mobile
+            let isDragging = false;
+            slider.addEventListener('touchstart', e => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            });
+            slider.addEventListener('touchmove', e => {
+                if (!isDragging) return;
+                e.preventDefault();
+            });
+            slider.addEventListener('touchend', e => {
+                if (!isDragging) return;
+                isDragging = false;
+                const endX = e.changedTouches[0].clientX;
+                const diff = startX - endX;
+                if (Math.abs(diff) > 50) { // Swipe threshold
+                    if (diff > 0) nextSlide();
+                    else changeSlide(sliderId, -1);
+                }
+            });
+
+            // Auto-slide
+            setInterval(nextSlide, 5000);
+
+            // Global changeSlide for buttons
+            window.changeSlide = function(sliderIdParam, direction) {
+                if (sliderIdParam === sliderId) {
+                    localCurrent = (localCurrent + direction + slides.length) % slides.length;
+                    goToSlide(localCurrent);
+                }
+            };
+        }
+
+        // Initialize sliders
+        initSlider('avatarSlider', 'avatarDots');
+        initSlider('bannerSlider', 'bannerDots');
+
+        // Lightbox functionality
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImg');
+            img.src = src;
+            lightbox.style.display = 'block';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // Contact Modal
+        function openModal() {
+            document.getElementById('contactModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('contactModal').style.display = 'none';
+        }
+
+        // Form submit (placeholder)
+        document.querySelector('form').addEventListener('submit', e => {
+            e.preventDefault();
+            alert('Сообщение отправлено!'); // Replace with actual submit
+            closeModal();
+        });
+
+        // Hide banner
+        function hideBanner() {
+            document.getElementById('banner').classList.add('hidden');
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Close modals on outside click
+        window.onclick = function(event) {
+            const lightbox = document.getElementById('lightbox');
+            const contactModal = document.getElementById('contactModal');
+            if (event.target === lightbox) closeLightbox();
+            if (event.target === contactModal) closeModal();
+        }
+    </script>
+</body>
+</html>
