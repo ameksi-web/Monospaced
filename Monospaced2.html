@@ -1,757 +1,653 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monospaced2</title>
-    <meta name="description" content="Пример портфолио дизайнера">
+    <title>ДАНА СЕВЕР | Психология без лишних слов (Финальная сборка)</title>
+
     <style>
-        /* Reset and base styles - Optimized */
+        /* =================================================================
+           ДИЗАЙН-СИСТЕМА (Editorial Minimalism 2026)
+           ================================================================= */
+
+        :root {
+            /* ЦВЕТА */
+            --color-bg: #FFFFFF;
+            --color-text: #0A0A0A;
+            --color-accent: #8B5CF6; /* Мягкий лавандовый */
+            --color-highlight: #F5F0E8; /* Теплый бежевый */
+            --color-hover: #FFE5D9; /* Персиковый микроакцент */
+
+            /* ТИПОГРАФИКА */
+            --font-serif: 'Times New Roman', Times, serif; 
+            --font-sans: 'Arial Black', Arial, sans-serif; 
+            --h1-size: 72px;
+            --text-size: 18px;
+            --line-height: 1.8;
+            --font-weight-bold: 900;
+
+            /* КОМПОЗИЦИЯ И ВОЗДУХ */
+            --padding-section: 12vh 8vw; 
+            --spacing-large: 4rem;
+            --spacing-medium: 2rem;
+            --shadow-subtle: 0 10px 30px rgba(10, 10, 10, 0.08); 
+        }
+
+        /* Общие стили и сброс */
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            cursor: none; 
         }
+
         body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            /* Enhanced background: Less intensive animation for perf */
-            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f0f23, #533483);
-            background-size: 600% 600%;
-            animation: gradientShift 20s ease infinite;
-            position: relative;
-            overflow-x: hidden;
-            will-change: background-position; /* Hardware acceleration */
+            font-family: var(--font-serif);
+            font-size: var(--text-size);
+            line-height: var(--line-height);
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            transition: background-color 0.3s ease;
+            min-height: 200vh; 
         }
-        /* Reduced motion for accessibility/perf */
-        @media (prefers-reduced-motion: reduce) {
-            body { animation: none; }
-        }
-        /* Particle animation - Optimized, less frequent */
-        body::before {
-            content: '';
+        
+        a { text-decoration: none; color: inherit; }
+
+        /* =================== КУРСОР =================== */
+        .custom-cursor {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
-                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(2px 2px at 160px 30px, #ddd, transparent);
-            background-repeat: repeat;
-            background-size: 200px 100px;
-            animation: particles 40s linear infinite; /* Slower for less lag */
-            opacity: 0.1;
-            z-index: -1;
-            will-change: transform;
-        }
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            25% { background-position: 100% 0%; }
-            50% { background-position: 100% 100%; }
-            75% { background-position: 0% 100%; }
-        }
-        @keyframes particles {
-            from { transform: translateY(0px); }
-            to { transform: translateY(-100px); }
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Cover Section - Optimized animations */
-        .cover {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://static.tildacdn.pub/tild6130-3565-4438-b738-653563643634/photo_54069616110229.jpg') center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            position: relative;
-        }
-        .cover::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent 30%, rgba(0,159,255,0.1) 50%, transparent 70%);
-            animation: shimmer 4s infinite; /* Slower shimmer */
-            will-change: transform;
-        }
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        .cover h1 {
-            font-family: 'Unbounded', sans-serif;
-            font-size: 6rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            animation: fadeInUp 1s ease;
-            will-change: opacity, transform;
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .cover p {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            font-family: 'Unbounded', sans-serif;
-            animation: fadeInUp 1s ease 0.3s both;
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            margin: 0 10px;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeInUp 1s ease 0.6s both;
-            will-change: transform;
-        }
-        .btn-primary {
-            background: #009fff;
-            color: white;
-        }
-        .btn-secondary {
-            background: white;
-            color: #000;
-        }
-        .btn:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-
-        /* Advantages Section - Added outlined emojis */
-        .advantages {
-            padding: 100px 0;
-            background: rgba(8,8,8,0.9);
-            color: white;
-        }
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        .section-desc {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 60px;
-            font-size: 1.1rem;
-        }
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        .card {
-            text-align: center;
-            padding: 20px;
-            transition: transform 0.3s ease;
-            will-change: transform;
-        }
-        .card:hover {
-            transform: translateY(-10px);
-        }
-        .card img {
-            width: 70px;
-            margin-bottom: 20px;
-        }
-        .card h3::before {
-            content: '✨'; /* Outlined emoji example */
-            font-size: 1.5rem;
-            margin-right: 10px;
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Outline effect */
-            filter: drop-shadow(0 0 2px rgba(255,255,255,0.5));
-        }
-        .card p {
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        /* Gallery Sections - Optimized sliders with touch support */
-        .gallery {
-            padding: 90px 0;
-            background: rgba(8,8,8,0.9);
-            color: white;
-        }
-        .gallery h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-        .gallery p {
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-        }
-        .slider-wrapper {
-            position: relative;
-            overflow: hidden;
-        }
-        .slider {
-            display: flex;
-            transition: transform 0.5s ease;
-            will-change: transform;
-        }
-        .slide {
-            min-width: 100%;
-            flex-shrink: 0;
-        }
-        .slide img {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-            border-radius: 10px;
-            cursor: pointer; /* For lightbox */
-            loading: lazy; /* Lazy loading for perf */
-        }
-        .slider-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 10;
-            will-change: opacity;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-        .slider-nav:hover {
-            opacity: 1;
-        }
-        .slider-prev { left: 10px; }
-        .slider-next { right: 10px; }
-        .slider-dots {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .dot {
             width: 10px;
             height: 10px;
+            background-color: var(--color-accent);
             border-radius: 50%;
-            background: rgba(255,255,255,0.5);
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .dot.active {
-            background: white;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: exclusion;
         }
 
-        /* Lightbox Modal - New functionality */
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
+        /* =================== 1. ХЕДЕР И НАВИГАЦИЯ =================== */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 8vw;
+            position: sticky;
             top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-        }
-        .lightbox-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-            margin: auto;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        .lightbox img {
-            width: 100%;
-            height: auto;
-        }
-        .close-lightbox {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
+            z-index: 100;
+            background-color: var(--color-bg);
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.03); 
         }
 
-        /* Reviews Section - Added outlined emojis */
-        .reviews {
-            padding: 150px 0;
-            background: rgba(8,8,8,0.9);
-            color: white;
+        .logo-dana {
+            font-family: var(--font-sans);
+            font-weight: var(--font-weight-bold);
+            font-size: 32px;
+            letter-spacing: -2px;
+            -webkit-text-stroke: 1px var(--color-text);
+            color: transparent;
         }
-        .review-slider {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
+        
+        /* Главные разделы (Центр) */
+        .nav-sections a {
+            font-family: var(--font-serif); 
+            margin: 0 1.2rem;
+            font-size: 17px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
         }
-        .review-item {
-            display: none;
+        .nav-sections a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Служебные ссылки (Право) */
+        .nav-menu a {
+            font-family: var(--font-sans);
+            margin-left: var(--spacing-medium);
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .nav-menu a:hover {
+            color: var(--color-accent);
+        }
+        
+        header .nav-sections {
+            flex-grow: 1; 
             text-align: center;
         }
-        .review-item.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
+        header .nav-menu {
+            margin-left: auto;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .review-text {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        .review-author::before {
-            content: '⭐'; /* Outlined star emoji */
-            font-size: 1.2rem;
-            margin-right: 5px;
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-            filter: drop-shadow(0 0 2px rgba(255,255,255,0.5));
-        }
-        .review-role {
-            opacity: 0.7;
-        }
-        .review-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: 20px auto;
-            background: #ccc; /* Placeholder */
-        }
-        .slider-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            padding: 10px;
-            cursor: pointer;
-        }
-        .prev { left: -50px; }
-        .next { right: -50px; }
 
-        /* Contact Modal - New functionality */
-        .contact-modal {
-            display: none;
-            position: fixed;
-            z-index: 1500;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8);
-        }
-        .modal-content {
-            background-color: #080808;
-            margin: 10% auto;
-            padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 500px;
-            color: white;
-        }
-        .close-modal {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .close-modal:hover {
-            color: white;
-        }
-        form {
+        /* =================== 2. HERO-СЕКЦИЯ (Общая для главной и контента) =================== */
+        .hero {
+            padding: var(--padding-section);
+            min-height: 60vh;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-        }
-        input, textarea {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background: #1a1a1a;
-            color: white;
+            justify-content: center;
+            align-items: flex-start; 
+            position: relative; /* Для accent */
         }
 
-        /* Fixed Banner - Optimized */
-        .fixed-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(135deg, #3b73f5, #009fff);
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            z-index: 1000;
-            animation: pulse 2s infinite;
+        .hero h1 {
+            font-family: var(--font-sans);
+            font-weight: var(--font-weight-bold);
+            font-size: var(--h1-size);
+            line-height: 1.1;
+            max-width: 70%;
+            margin-bottom: var(--spacing-large);
+            letter-spacing: -3px;
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.9; }
-        }
-        .fixed-banner.hidden {
-            display: none;
-        }
-        .close-banner {
-            background: none;
+
+        .action-button {
+            padding: 15px 35px;
+            background-color: var(--color-accent);
+            color: var(--color-bg);
             border: none;
-            color: white;
-            font-size: 1.5rem;
+            border-radius: 5px;
+            font-family: var(--font-sans);
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
             cursor: pointer;
         }
 
-        /* Footer - Added contact button */
-        .footer {
-            padding: 30px 0 60px;
-            background: #000;
-            text-align: center;
-            color: #bcbcbc;
+        .action-button:hover {
+            background-color: var(--color-hover);
+            color: var(--color-text);
+            transform: translateY(-2px); 
         }
-        .contact-btn {
-            background: #009fff;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            margin-top: 10px;
-            display: inline-block;
+        
+        .hero-accent {
+            position: absolute; 
+            top: 15%; 
+            left: 80%; 
+            width: 80px; 
+            height: 80px; 
+            border-radius: 50%; 
+            background-color: var(--color-highlight); 
+            opacity: 0.4; 
+            z-index: -1;
         }
 
-        /* Responsive - Mobile optimized */
-        @media (max-width: 768px) {
-            .cover h1 { font-size: 3rem; }
-            .cover p { font-size: 1.2rem; }
-            .cards { grid-template-columns: 1fr; }
-            .slide img { height: 350px; }
-            .prev, .next, .slider-prev, .slider-next { display: none; }
-            .fixed-banner { flex-direction: column; gap: 10px; }
-            .lightbox-content { max-width: 95%; }
+
+        /* =================== 3. КОНТЕНТ-БЛОКИ (BENTO GRID) =================== */
+        .content-container {
+            padding: 0 8vw;
+            padding-bottom: 12vh;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(280px, auto);
+            gap: 20px;
         }
-        /* Touch support for sliders */
-        .slider-wrapper {
-            touch-action: pan-y;
+
+        .article-card {
+            background-color: var(--color-highlight);
+            padding: var(--spacing-medium);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            box-shadow: var(--shadow-subtle);
+            position: relative;
+            opacity: 0; 
+            transform: translateY(20px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .article-card:hover {
+            transform: translateY(-2px); 
+            box-shadow: 0 15px 40px rgba(10, 10, 10, 0.12);
+        }
+
+        .card-lg { grid-column: span 2; grid-row: span 2; }
+        .card-md { grid-column: span 2; }
+        .card-sm { grid-column: span 1; }
+        .card-full { grid-column: span 4; background-color: var(--color-accent); color: var(--color-bg); }
+
+        .card-content { z-index: 2; position: relative; height: 100%; display: flex; flex-direction: column; justify-content: space-between;}
+        .card-content h2 { font-family: var(--font-sans); font-weight: var(--font-weight-bold); font-size: 32px; line-height: 1.2; margin-bottom: var(--spacing-medium); max-width: 90%; color: inherit; }
+        .card-full h2 { color: white; }
+        .card-full p { color: white; opacity: 0.9; }
+
+        .pure-text-block { background-color: transparent; box-shadow: none; justify-content: center; align-items: center; text-align: center; font-size: 24px; color: var(--color-accent); }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: var(--spacing-medium); padding-top: 10px; }
+        .card-footer .views { font-size: 14px; opacity: 0.6; font-family: var(--font-sans); }
+        
+        /* =================== 4. Glassmorphism Меню =================== */
+        .glass-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            border-left: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+            padding: var(--spacing-large);
+            padding-top: 100px;
+            transition: right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 900;
+            display: none;
+            flex-direction: column;
+        }
+
+        .glass-menu.active {
+            right: 0;
+            display: flex;
+        }
+
+        .glass-menu a {
+            font-family: var(--font-sans);
+            font-size: 24px;
+            font-weight: var(--font-weight-bold);
+            padding: 15px 0;
+            transition: color 0.3s;
+        }
+
+        .glass-menu a:hover {
+            color: var(--color-accent);
+        }
+        
+        /* =================== ФОРМЫ (ВХОД/РЕГИСТРАЦИЯ) =================== */
+        .form-container {
+            max-width: 400px; 
+            padding: 40px; 
+            background-color: var(--color-highlight); 
+            border-radius: 12px; 
+            box-shadow: var(--shadow-subtle);
+        }
+        
+        .form-container input {
+            padding: 12px; 
+            border: 1px solid #ccc; 
+            background-color: white; 
+            border-radius: 5px; 
+            font-size: 16px;
+            font-family: var(--font-serif);
+        }
+        
+        .google-button {
+            padding: 12px; 
+            background-color: #4285F4; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            font-family: var(--font-sans);
+        }
+        
+        .profile-container {
+            max-width: 800px; 
+            width: 100%; 
+            display: grid; 
+            grid-template-columns: 1fr 2fr; 
+            gap: 40px;
+        }
+
+        /* Медиазапросы */
+        @media (max-width: 1200px) {
+            :root { --h1-size: 52px; }
+            .content-container { grid-template-columns: repeat(3, 1fr); }
+            .card-lg { grid-column: span 3; }
+            .card-md { grid-column: span 3; }
+            .card-full { grid-column: span 3; }
+            header .nav-sections { display: none; } 
+            .profile-container { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            :root { 
+                --h1-size: 40px; 
+                --padding-section: 8vh 5vw;
+                --text-size: 16px;
+            }
+            header { padding: 20px 5vw; }
+            .content-container { grid-template-columns: 1fr; }
+            .card-lg, .card-md, .card-sm, .card-full { grid-column: span 1; }
+            .hero h1 { max-width: 100%; }
         }
     </style>
 </head>
+
 <body>
-    <!-- Cover -->
-    <section class="cover">
-        <div class="container">
-            <h1>monospaced</h1>
-            <p>Дизайн с фокусом на Ваш успех</p>
-            <a href="https://funpay.com/lots/offer?id=52890778" class="btn btn-primary">Сделать заказ</a>
-            <a href="#avatars" class="btn btn-secondary">Примеры работ</a>
-        </div>
-    </section>
 
-    <!-- Advantages -->
-    <section class="advantages" id="quality">
-        <div class="container">
-            <h2 class="section-title">Преимущества работы со мной</h2>
-            <p class="section-desc">Быстрая и эффективная реализация различных проектов по доступным и конкурентоспособным ценам, которые обладают уникальным и оригинальным дизайном</p>
-            <div class="cards">
-                <div class="card">
-                    <img src="https://static.tildacdn.pub/tild6631-3033-4233-b533-613333313364/check_bullet_round_bold.svg" alt="" loading="lazy">
-                    <h3>Опыт работы</h3>
-                    <p>Более 2 лет в графическом дизайне, выполнено свыше 1000 заказов.</p>
-                </div>
-                <div class="card">
-                    <img src="https://static.tildacdn.pub/tild6536-6464-4233-a533-613333313364/discount_percent_benefit_offer.svg" alt="" loading="lazy">
-                    <h3>Доступные цены</h3>
-                    <p>Стоимость работы — всего от 99 рублей за проект.</p>
-                </div>
-                <div class="card">
-                    <img src="https://static.tildacdn.pub/tild6536-6464-4233-a533-613333313364/design_create.svg" alt="" loading="lazy">
-                    <h3>Разнообразие проектов</h3>
-                    <p>Создаю аватарки, баннеры, логотипы и превью.</p>
-                </div>
-                <div class="card">
-                    <img src="https://static.tildacdn.pub/tild6536-6464-4233-a533-613333313364/diamond_remove.svg" alt="" loading="lazy">
-                    <h3>Минималистичный стиль</h3>
-                    <p>Дизайн, ассоциирующийся с роскошью.</p>
-                </div>
-                <div class="card">
-                    <img src="https://static.tildacdn.pub/tild6536-6464-4233-a533-613333313364/watch_clock_time.svg" alt="" loading="lazy">
-                    <h3>Быстрое выполнение</h3>
-                    <p>Скорость выполнения работ - от 30 минут до нескольких часов</p>
-                </div>
-                <div class="card">
-                    <img src="https://static.tildacdn.pub/tild6536-6464-4233-a533-613333313364/man.svg" alt="" loading="lazy">
-                    <h3>Индивидуальный подход</h3>
-                    <p>Учитываю особенности каждого проекта для достижения наилучшего результата.</p>
-                </div>
-            </div>
-            <a href="#contact" class="btn btn-primary" style="display: block; margin: 40px auto 0; max-width: 200px;" onclick="openModal()">Связаться</a>
-        </div>
-    </section>
+    <div class="custom-cursor"></div>
 
-    <!-- Avatars Gallery -->
-    <section class="gallery" id="avatars">
-        <div class="container">
-            <h2>Мои работы</h2>
-            <p>Примеры аватарок по цене от 99 рублей</p>
-            <div class="slider-wrapper">
-                <div class="slider" id="avatarSlider">
-                    <div class="slide"><img src="https://static.tildacdn.pub/tild3137-3361-4431-b062-663036616233/vozj7p3m2w1n1pmded57.webp" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
-                    <div class="slide"><img src="https://static.tildacdn.pub/tild3030-3034-4630-b161-306266353235/photo_53707642751922.webp" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
-                    <div class="slide"><img src="https://static.tildacdn.pub/tild6531-3632-4337-b566-363066346138/photo_53707642751922.webp" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
-                    <div class="slide"><img src="https://static.tildacdn.pub/tild6232-3664-4364-a537-613363346633/mlfpc7d34z8gna715nwl.jpg" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
-                    <div class="slide"><img src="https://static.tildacdn.pub/tild3865-3361-4365-b466-646233373666/dku1v5p0iq3oni4s7k7q.jpg" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
-                    <div class="slide"><img src="https://static.tildacdn.pub/tild6433-6231-4562-b435-613562303366/1itcb05qpiwri829nflv.jpg" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
-                </div>
-                <button class="slider-nav slider-prev" onclick="changeSlide('avatarSlider', -1)">&lt;</button>
-                <button class="slider-nav slider-next" onclick="changeSlide('avatarSlider', 1)">&gt;</button>
-                <div class="slider-dots" id="avatarDots"></div>
-            </div>
-        </div>
-    </section>
+    <header>
+        <a href="#" class="logo-dana clickable-element">ДАНА СЕВЕР</a>
+        
+        <nav class="nav-sections">
+            <a href="#relationships-section" class="clickable-element">Отношения</a>
+            <a href="#personality-section" class="clickable-element">Личность</a>
+            <a href="#family-section" class="clickable-element">Семья</a>
+            <a href="#career-section" class="clickable-element">Карьера</a>
+            <a href="#emotions-section" class="clickable-element">Эмоции</a>
+        </nav>
+        
+        <nav class="nav-menu">
+            <a href="#login-section" class="clickable-element" id="login-link">ВОЙТИ</a>
+            <a href="#profile-section" class="clickable-element" id="profile-link" style="display:none;">КАБИНЕТ</a> 
+            
+            <a href="#search-section" class="clickable-element">ПОИСК</a>
+            <a href="#contacts-section" class="clickable-element">КОНТАКТЫ</a>
+            <a href="#" class="clickable-element" id="menu-toggle">МЕНЮ</a>
+        </nav>
+    </header>
 
-    <!-- Banners Gallery -->
-    <section class="gallery" id="banners">
-        <div class="container">
-            <h2>А также</h2>
-            <p>Примеры баннеров по цене от 99 рублей</p>
-            <div class="slider-wrapper">
-                <div class="slider" id="bannerSlider">
-                    <div class="slide"><img src="https://static.tildacdn.pub/tild6536-6434-4164-a538-613733316335/Airbrush-Image-Enhan.jpg" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
-                    <div class="slide"><img src="https://static.tildacdn.pub/tild3664-6332-4530-b631-336330636537/_1067_20251003215440.png" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
-                    <div class="slide"><img src="https://static.tildacdn.pub/tild3734-3266-4532-a539-613762323735/_1058_20250930211037.png" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
-                    <div class="slide"><img src="https://static.tildacdn.pub/tild3434-3536-4633-b432-653631616330/_1058_20250930210618.png" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
-                    <div class="slide"><img src="https://static.tildacdn.pub/tild6232-6233-4631-b565-343961643332/_1067_20251003191205.png" alt="" loading="lazy" onclick="openLightbox(this.src)"></div>
-                </div>
-                <button class="slider-nav slider-prev" onclick="changeSlide('bannerSlider', -1)">&lt;</button>
-                <button class="slider-nav slider-next" onclick="changeSlide('bannerSlider', 1)">&gt;</button>
-                <div class="slider-dots" id="bannerDots"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Reviews -->
-    <section class="reviews" id="reviews">
-        <div class="container">
-            <h2 class="section-title">Отзывы клиентов</h2>
-            <div class="review-slider">
-                <button class="slider-nav prev" onclick="changeReview(-1)">&lt;</button>
-                <div class="review-item active">
-                    <div class="review-text">Аватарка просто отрыв фляги! Дизайн приковывает взгляд, а цветовая гамма идеально подобрана. Смотрится современно и дорого. Однозначно 5 звёзд!</div>
-                    <div class="review-img"></div>
-                    <div class="review-author">Zapterodaktel</div>
-                    <div class="review-role">Геймер</div>
-                </div>
-                <div class="review-item">
-                    <div class="review-text">Хотел бы поблагодарить дизайнера Monospaced. Заказал у него аватарку, но дал такой себе тз, а продавец в свою очередь откорректировал и сделал все бомбово. Обращайтесь не пожалеете )</div>
-                    <div class="review-img"></div>
-                    <div class="review-author">Ildarov</div>
-                    <div class="review-role">SMM FUNPAY</div>
-                </div>
-                <div class="review-item">
-                    <div class="review-text">Самый заебатый продавец, буду покупать только у него! Делает изумительные аватарки, покупайте!</div>
-                    <div class="review-img"></div>
-                    <div class="review-author">Mictaa</div>
-                    <div class="review-role">Владелец Discord сервера</div>
-                </div>
-                <button class="slider-nav next" onclick="changeReview(1)">&gt;</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Modal -->
-    <div id="contactModal" class="contact-modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2>Связаться со мной</h2>
-            <form>
-                <input type="text" placeholder="Ваше имя" required>
-                <input type="email" placeholder="Ваш email" required>
-                <textarea placeholder="Сообщение" rows="5" required></textarea>
-                <button type="submit" class="btn btn-primary">Отправить</button>
-            </form>
-        </div>
+    <div class="glass-menu" id="glass-menu">
+        <a href="#article-full" class="clickable-element">Полная Статья</a>
+        <a href="#test-section" class="clickable-element">Пройти Тест</a>
+        <a href="#about-section" class="clickable-element">О Дане Север</a>
+        <a href="#login-section" class="clickable-element">Войти / Регистрация</a>
     </div>
 
-    <!-- Lightbox Modal -->
-    <div id="lightbox" class="lightbox">
-        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
-        <div class="lightbox-content">
-            <img id="lightboxImg" src="" alt="">
-        </div>
-    </div>
+    <main>
+        <section class="hero" id="home-section">
+            <h1>Психология без <br>лишних слов</h1>
+            <button class="action-button clickable-element">Начать читать</button>
+            <div class="hero-accent"></div>
+        </section>
 
-    <!-- Fixed Banner -->
-    <div class="fixed-banner" id="banner">
-        <span>Действуют скидки до конца месяца. Оформите заказ прямо сейчас!</span>
-        <a href="https://funpay.com/lots/offer?id=52890778" class="btn btn-primary">Сделать заказ</a>
-        <button class="close-banner" onclick="hideBanner()">&times;</button>
-    </div>
+        <div class="content-container">
+            <a href="#article-full" class="article-card card-lg clickable-element" data-delay="0.1">
+                <div class="card-image" style="background-color: #8B5CF6; opacity: 0.1;"></div>
+                <div class="card-content">
+                    <h2>Искусство Не-Действия: Как обрести силу в паузе</h2>
+                    <p>Современная жизнь требует постоянной активности, но истинное равновесие находится в добровольном отстранении.</p>
+                    <div class="card-footer"><span>Личность</span><span class="views">2.3K просмотров</span></div>
+                </div>
+            </a>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; Monospaced. Все права защищены.</p>
-            <a href="#contact" class="contact-btn" onclick="openModal()">Обратная связь</a>
+            <a href="#article-full" class="article-card card-md clickable-element" data-delay="0.2">
+                <div class="card-image" style="background-color: #F5F0E8; opacity: 0.8; filter: none;"></div>
+                <div class="card-content">
+                    <h2>Эмоциональная геометрия</h2>
+                    <p>Исследование бессознательных паттернов, формирующих ваши решения.</p>
+                    <div class="card-footer"><span>Эмоции</span><span class="views">890 просмотров</span></div>
+                </div>
+            </a>
+
+            <div class="article-card card-sm pure-text-block clickable-element" data-delay="0.3">
+                <div class="card-content" style="justify-content: center; align-items: center; text-align: center;">
+                    <p style="opacity: 1;">ПРОСТРАНСТВО <br> КАК ЭЛЕМЕНТ <br> ДИЗАЙНА</p>
+                </div>
+            </div>
+            
+            <a href="#article-full" class="article-card card-sm clickable-element" data-delay="0.4">
+                <div class="card-image" style="background-color: #FFE5D9; opacity: 0.2;"></div>
+                <div class="card-content">
+                    <h2>Ментальный детокс</h2>
+                    <p>3 шага к чистому сознанию.</p>
+                    <div class="card-footer"><span>Практика</span><span class="views">1.1K просмотров</span></div>
+                </div>
+            </a>
+            
+            <a href="#test-section" class="article-card card-full clickable-element" data-delay="0.7">
+                <div class="card-content" style="flex-direction: row; align-items: center; justify-content: space-between;">
+                    <h2 style="font-size: 40px; margin: 0; max-width: 60%; color: white;">ПРОЙДИТЕ ПСИХОЛОГИЧЕСКИЙ ТЕСТ НА ТИП ТЕМПЕРАМЕНТА</h2>
+                    <button class="action-button clickable-element" style="background-color: var(--color-bg); color: var(--color-text); box-shadow: none;">Пройти тест</button>
+                </div>
+            </a>
+
         </div>
+
+        <section class="hero" id="login-section" style="min-height: 70vh; justify-content: flex-start; padding-top: 15vh; display:none;">
+            <h1 style="font-size: 52px; margin-bottom: 20px;">Вход / Регистрация</h1>
+            
+            <div class="form-container">
+                <form style="display: flex; flex-direction: column; gap: 20px;">
+                    <button class="google-button clickable-element">
+                        🔑 Войти через Google
+                    </button>
+                    
+                    <div style="text-align: center; opacity: 0.6; margin: 10px 0;">— ИЛИ —</div>
+                    
+                    <input type="text" placeholder="Имя (для регистрации)" style="display:none;" id="reg-name">
+                    <input type="email" placeholder="Email">
+                    <input type="password" placeholder="Пароль">
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <a href="#reset-password" style="font-size: 14px; color: var(--color-accent); text-decoration: none;">Забыли пароль?</a>
+                        <a href="#" style="font-size: 14px; color: var(--color-text); text-decoration: none;" id="toggle-form">Нужна регистрация?</a>
+                    </div>
+                    
+                    <button type="submit" class="action-button clickable-element" id="submit-button" style="background-color: var(--color-text); color: var(--color-bg); margin-top: 10px;">
+                        ВОЙТИ
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section class="hero" id="profile-section" style="min-height: 70vh; justify-content: flex-start; padding-top: 15vh; display:none;">
+            <h1 style="font-size: 52px; margin-bottom: 40px;">Личный Кабинет</h1>
+            
+            <div class="profile-container">
+                
+                <div style="background-color: var(--color-highlight); padding: 30px; border-radius: 12px; font-family: var(--font-sans);">
+                    <p style="font-size: 20px; font-weight: bold; margin-bottom: 20px;" id="profile-name">Иван Читатель</p>
+                    <p style="font-size: 14px; opacity: 0.7; margin-bottom: 30px;" id="profile-role">Роль: Reader</p>
+
+                    <a href="#test-results" class="clickable-element" style="display: block; padding: 10px 0; color: var(--color-accent); border-bottom: 1px solid #ddd;">Мои результаты тестов</a>
+                    <a href="#settings" class="clickable-element" style="display: block; padding: 10px 0; color: var(--color-text); border-bottom: 1px solid #ddd;">Настройки профиля</a>
+                    
+                    <a href="#editor-panel" class="clickable-element" id="editor-link" style="display: none; padding: 10px 0; color: red; margin-top: 20px; font-weight: bold;">Панель Редактора / Админа</a>
+                    <button class="action-button clickable-element" id="logout-button" style="width: 100%; margin-top: 30px; background-color: #ccc; color: var(--color-text); box-shadow: none;">ВЫЙТИ</button>
+                </div>
+                
+                <div id="cabinet-content">
+                    <h2 style="font-family: var(--font-sans); font-size: 32px; margin-bottom: 20px;">Мои Последние Тесты</h2>
+                    <div style="background-color: var(--color-bg); padding: 20px; border: 1px solid #eee; margin-bottom: 15px; box-shadow: var(--shadow-subtle);">
+                        <p style="font-weight: bold;">Тест на уровень тревожности</p>
+                        <p style="font-size: 16px; opacity: 0.8;">Ваш результат: **Средний уровень**. (12.09.2026)</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="hero" id="article-full" style="padding-top: 10vh; min-height: 100vh; display: none;">
+            <div class="article-page" style="max-width: 800px; margin: 0 auto;">
+                <header>
+                    <p style="opacity: 0.6; font-size: 16px; margin-bottom: 10px; font-family: var(--font-serif);">ОТНОШЕНИЯ • 2 дня назад</p>
+                    <h1 style="font-size: 84px; line-height: 1.05; letter-spacing: -4px; margin-bottom: 40px; font-family: var(--font-sans); font-weight: var(--font-weight-bold);">
+                        Границы в отношениях: как говорить 'нет' без вины
+                    </h1>
+                </header>
+                <p style="font-family: var(--font-serif); font-size: var(--text-size); line-height: var(--line-height);">
+                    Полное и глубокое содержание статьи... Используется легкий шрифт для максимального комфорта чтения. Огромное белое пространство позволяет "дышать" тексту.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p style="text-align: center; padding: 50px; opacity: 0.5; font-size: 14px; font-family: var(--font-serif);">© 2026 ДАНА СЕВЕР. Психология без лишних слов. (Имитация Footer)</p>
     </footer>
 
+
     <script>
-        // Optimized Review Slider - Use requestAnimationFrame if needed
-        let currentReview = 0;
-        const reviews = document.querySelectorAll('.review-item');
+        // Имитация "текущего пользователя" и его роли (Reader по умолчанию)
+        let currentUser = null; 
+        
+        // =================================================================
+        // 1. УПРАВЛЕНИЕ АУТЕНТИФИКАЦИЕЙ И РОУТИНГОМ (ИМИТАЦИЯ)
+        // =================================================================
+        const main = document.querySelector('main');
+        const sections = {
+            '#home-section': document.getElementById('home-section'),
+            '#login-section': document.getElementById('login-section'),
+            '#profile-section': document.getElementById('profile-section'),
+            '#article-full': document.getElementById('article-full'),
+            // Добавьте сюда другие секции по мере их реализации
+        };
 
-        function showReview(index) {
-            reviews.forEach(r => r.classList.remove('active'));
-            reviews[index].classList.add('active');
+        const loginLink = document.getElementById('login-link');
+        const profileLink = document.getElementById('profile-link');
+        const logoutButton = document.getElementById('logout-button');
+        const editorLink = document.getElementById('editor-link');
+        const submitButton = document.getElementById('submit-button');
+        const regNameInput = document.getElementById('reg-name');
+        const toggleFormLink = document.getElementById('toggle-form');
+        let isRegistration = false;
+
+        // Функция для переключения видимых секций
+        function navigate(hash) {
+            // Скрываем все секции, кроме хедера и футера
+            Object.values(sections).forEach(section => {
+                if (section) section.style.display = 'none';
+            });
+
+            // Показываем нужную секцию
+            const targetSection = sections[hash] || sections['#home-section'];
+            if (targetSection) targetSection.style.display = 'flex'; // Используем flex для hero-секций
+            
+            // Закрываем меню
+            document.getElementById('glass-menu').classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
 
-        function changeReview(direction) {
-            currentReview = (currentReview + direction + reviews.length) % reviews.length;
-            showReview(currentReview);
-        }
-
-        // Auto-slide with reduced frequency for perf
-        setInterval(() => changeReview(1), 6000);
-
-        // Improved Gallery Sliders - Touch support
-        let startX = 0;
-        let currentSlide = 0;
-
-        function initSlider(sliderId, dotsId) {
-            const slider = document.getElementById(sliderId);
-            const slides = slider.children;
-            const dotsContainer = document.getElementById(dotsId);
-            let localCurrent = 0;
-
-            // Create dots
-            for (let i = 0; i < slides.length; i++) {
-                const dot = document.createElement('span');
-                dot.classList.add('dot');
-                if (i === 0) dot.classList.add('active');
-                dot.onclick = () => goToSlide(i);
-                dotsContainer.appendChild(dot);
-            }
-            const dots = dotsContainer.children;
-
-            function goToSlide(index) {
-                localCurrent = index;
-                slider.style.transform = `translateX(-${index * 100}%)`;
-                for (let dot of dots) dot.classList.remove('active');
-                dots[index].classList.add('active');
-            }
-
-            function nextSlide() {
-                localCurrent = (localCurrent + 1) % slides.length;
-                goToSlide(localCurrent);
-            }
-
-            // Touch events for mobile
-            let isDragging = false;
-            slider.addEventListener('touchstart', e => {
-                startX = e.touches[0].clientX;
-                isDragging = true;
-            });
-            slider.addEventListener('touchmove', e => {
-                if (!isDragging) return;
-                e.preventDefault();
-            });
-            slider.addEventListener('touchend', e => {
-                if (!isDragging) return;
-                isDragging = false;
-                const endX = e.changedTouches[0].clientX;
-                const diff = startX - endX;
-                if (Math.abs(diff) > 50) { // Swipe threshold
-                    if (diff > 0) nextSlide();
-                    else changeSlide(sliderId, -1);
+        // Обновление состояния UI при входе
+        function updateAuthState(user) {
+            currentUser = user;
+            if (user) {
+                // Вошли
+                loginLink.style.display = 'none';
+                profileLink.style.display = 'block';
+                document.getElementById('profile-name').textContent = user.name;
+                document.getElementById('profile-role').textContent = 'Роль: ' + user.role;
+                
+                // Проверка ролей
+                if (user.role === 'admin' || user.role === 'editor') {
+                    editorLink.style.display = 'block';
+                } else {
+                    editorLink.style.display = 'none';
                 }
-            });
-
-            // Auto-slide
-            setInterval(nextSlide, 5000);
-
-            // Global changeSlide for buttons
-            window.changeSlide = function(sliderIdParam, direction) {
-                if (sliderIdParam === sliderId) {
-                    localCurrent = (localCurrent + direction + slides.length) % slides.length;
-                    goToSlide(localCurrent);
-                }
-            };
+            } else {
+                // Вышли
+                loginLink.style.display = 'block';
+                profileLink.style.display = 'none';
+                editorLink.style.display = 'none';
+            }
         }
 
-        // Initialize sliders
-        initSlider('avatarSlider', 'avatarDots');
-        initSlider('bannerSlider', 'bannerDots');
-
-        // Lightbox functionality
-        function openLightbox(src) {
-            const lightbox = document.getElementById('lightbox');
-            const img = document.getElementById('lightboxImg');
-            img.src = src;
-            lightbox.style.display = 'block';
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
-        }
-
-        // Contact Modal
-        function openModal() {
-            document.getElementById('contactModal').style.display = 'block';
-        }
-
-        function closeModal() {
-            document.getElementById('contactModal').style.display = 'none';
-        }
-
-        // Form submit (placeholder)
-        document.querySelector('form').addEventListener('submit', e => {
+        // Имитация ВХОДА/РЕГИСТРАЦИИ (для демонстрации)
+        submitButton.addEventListener('click', (e) => {
             e.preventDefault();
-            alert('Сообщение отправлено!'); // Replace with actual submit
-            closeModal();
+            const email = e.target.closest('form').querySelector('input[type="email"]').value;
+            const password = e.target.closest('form').querySelector('input[type="password"]').value;
+            
+            if (email && password) {
+                // Имитация аутентификации на основе email для ролей
+                let userRole = 'reader';
+                let userName = isRegistration ? regNameInput.value || 'Новый Пользователь' : 'Иван Читатель';
+                
+                if (email.includes('admin')) {
+                    userRole = 'admin';
+                    userName = 'Дана Север (Админ)';
+                } else if (email.includes('editor')) {
+                    userRole = 'editor';
+                    userName = 'Елена Автор (Редактор)';
+                }
+
+                updateAuthState({ name: userName, email: email, role: userRole });
+                navigate('#profile-section');
+                alert(`Успешный вход! Роль: ${userRole}.`);
+            } else {
+                alert('Введите email и пароль.');
+            }
+        });
+        
+        // Имитация ПЕРЕКЛЮЧЕНИЯ ФОРМЫ
+        toggleFormLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            isRegistration = !isRegistration;
+            regNameInput.style.display = isRegistration ? 'block' : 'none';
+            submitButton.textContent = isRegistration ? 'ЗАРЕГИСТРИРОВАТЬСЯ' : 'ВОЙТИ';
+            toggleFormLink.textContent = isRegistration ? 'Уже есть аккаунт?' : 'Нужна регистрация?';
         });
 
-        // Hide banner
-        function hideBanner() {
-            document.getElementById('banner').classList.add('hidden');
-        }
+        // Имитация ВЫХОДА
+        logoutButton.addEventListener('click', () => {
+            updateAuthState(null);
+            navigate('#home-section');
+        });
 
-        // Smooth scroll
+        // Обработка кликов по ссылкам (включая навигацию в шапке)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                navigate(this.getAttribute('href'));
+            });
+        });
+        
+        // Инициализация при загрузке страницы
+        navigate(window.location.hash || '#home-section');
+
+
+        // =================================================================
+        // 2. MICRO-INTERACTIONS (Курсор и Скролл)
+        // =================================================================
+        const cursor = document.querySelector('.custom-cursor');
+        const clickableElements = document.querySelectorAll('.clickable-element, .action-button');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        clickableElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '30px';
+                cursor.style.height = '30px';
+                const isAccentCard = el.closest('.article-card.card-full');
+                cursor.style.backgroundColor = isAccentCard ? 'var(--color-bg)' : 'var(--color-hover)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '10px';
+                cursor.style.height = '10px';
+                cursor.style.backgroundColor = 'var(--color-accent)';
             });
         });
 
-        // Close modals on outside click
-        window.onclick = function(event) {
-            const lightbox = document.getElementById('lightbox');
-            const contactModal = document.getElementById('contactModal');
-            if (event.target === lightbox) closeLightbox();
-            if (event.target === contactModal) closeModal();
-        }
+        // SCROLL REVEAL (Плавное появление карточек - работает только на главной)
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const card = entry.target;
+                    const delay = parseFloat(card.dataset.delay) || 0;
+                    setTimeout(() => {
+                        card.style.opacity = 1;
+                        card.style.transform = 'translateY(0)';
+                    }, delay * 500); 
+                    observer.unobserve(card);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.article-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // GLASSMORPHISM МЕНЮ (Toggle)
+        const menuToggle = document.getElementById('menu-toggle');
+        const glassMenu = document.getElementById('glass-menu');
+
+        menuToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            glassMenu.classList.toggle('active');
+            document.body.style.overflow = glassMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
     </script>
 </body>
 </html>
